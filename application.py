@@ -82,6 +82,9 @@ def search():
     option = request.form['options']
     search = request.form['search']
 
-    # print(option, "\n\n", search, "\n\n")
+    print(option, search)
+    db_query = f"SELECT * FROM books WHERE {option} = {search};"
+    books = db.execute(db_query).fetchall()
+    print(books)
 
     return "Searching..."
