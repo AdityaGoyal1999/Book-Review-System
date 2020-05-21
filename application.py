@@ -83,8 +83,15 @@ def search():
     search = request.form['search']
 
     print(option, search)
-    db_query = f"SELECT * FROM books WHERE {option} = '{search}';"
+    db_query = f"SELECT * FROM books WHERE {option} LIKE '%{search}%';"
     books = db.execute(db_query).fetchall()
     print(books)
 
     return render_template("searchResults.html", books=books, number=0)
+
+
+# TODO: This is not working
+@app.route("/book")
+def book():
+
+    return "This is the book"

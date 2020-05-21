@@ -1,6 +1,9 @@
 {% extends "layout.html" %} {% block title %} Search Results {% endblock %} {% block import %} {% endblock %} {% block body %}
 <h1>Search Results</h1>
 <div class="container">
+    {% if books == [] %}
+    <h4>No results to show</h4>
+    {% else %}
     <table>
         <tr>
             <th>Title</th>
@@ -10,12 +13,15 @@
         </tr>
         {% for book in books %}
         <tr>
-            <td>{{ book[2] }}</td>
-            <td>{{ book[3] }}</td>
-            <td>{{ book[1] }}</td>
-            <td>{{ book[4] }}</td>
+            <a href="{{ url_for('book') }}">
+                <td>{{ book[2] }}</td>
+                <td>{{ book[3] }}</td>
+                <td>{{ book[1] }}</td>
+                <td>{{ book[4] }}</td>
+            </a>
         </tr>
         {% endfor %}
     </table>
+    {% endif %}
 </div>
 {% endblock %}
