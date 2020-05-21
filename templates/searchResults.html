@@ -1,4 +1,4 @@
-{% extends "layout.html" %} {% block title %} Search Results {% endblock %} {% block import %} {% endblock %} {% block body %}
+{% extends "loggedInLayout.html" %} {% block title %} Search Results {% endblock %} {% block import %} {% endblock %} {% block body %}
 <h1>Search Results</h1>
 <div class="container">
     {% if books == [] %}
@@ -13,12 +13,10 @@
         </tr>
         {% for book in books %}
         <tr>
-            <a href="{{ url_for('book') }}">
-                <td>{{ book[2] }}</td>
-                <td>{{ book[3] }}</td>
-                <td>{{ book[1] }}</td>
-                <td>{{ book[4] }}</td>
-            </a>
+            <td><a href=" {{ url_for('book') }} ">{{ book[2] }}</a></td>
+            <td>{{ book[3] }}</td>
+            <td>{{ book[1] }}</td>
+            <td>{{ book[4] }}</td>
         </tr>
         {% endfor %}
     </table>

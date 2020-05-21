@@ -75,7 +75,7 @@ def signup():
     db.commit()
     return render_template("search.html")
 
-
+# TODO: search button not working in nav
 @app.route("/search", methods=["POST", "GET"])
 def search():
     
@@ -94,4 +94,10 @@ def search():
 @app.route("/book")
 def book():
 
-    return "This is the book"
+    return render_template("book.html")
+
+
+@app.route("/about")
+def about():
+
+    return render_template("about.html")

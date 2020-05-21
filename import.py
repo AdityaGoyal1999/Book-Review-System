@@ -14,7 +14,7 @@ def main():
             db.execute("INSERT INTO books (isbn, title, author, year) VALUES (:isbn, :title, :author, :year)", {"isbn": row[0], "title": row[1], "author": row[2], "year": row[3]})
             db.commit()
             line_count += 1
-        print("\n\nLines counted", line_count)
+        print("\nLines counted", line_count)
 
 
 if __name__ == "__main__":
