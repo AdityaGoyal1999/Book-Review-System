@@ -26,7 +26,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Set up database
-engine = create_engine("postgres://wulnronkubqzoy:33880c816471a23ae0fb3ccf19871e1f52f8dbe9f0102c57d479c39b706e923e@ec2-52-87-135-240.compute-1.amazonaws.com:5432/d9i2hu0qmbc0jm")
+engine = create_engine("postgres://jbuimiitaijunf:5e006a287d39930d2922e0a6bdaf1a9e69b73547a92f13f272307a2016d9cf68@ec2-34-200-15-192.compute-1.amazonaws.com:5432/dbm2hr587tr7rj")
 db = scoped_session(sessionmaker(bind=engine))
 
 
@@ -83,8 +83,8 @@ def search():
     search = request.form['search']
 
     print(option, search)
-    db_query = f"SELECT * FROM books WHERE {option} = {search};"
+    db_query = f"SELECT * FROM books WHERE {option} = '{search}';"
     books = db.execute(db_query).fetchall()
     print(books)
 
-    return "Searching..."
+    return render_template("searchResults.html", books=books, number=0)
