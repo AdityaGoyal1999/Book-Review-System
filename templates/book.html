@@ -1,6 +1,6 @@
-{%extends "loggedInLayout.html" %} {% block title %} {{ title }} {% endblock %} {% block import%} {% endblock %} {% block body %}
-<h1>{{ title }}</h1>
+{%extends "loggedInLayout.html" %} {% block title %} {{ book.title }} {% endblock %} {% block import%} {% endblock %} {% block body %}
+<h1>{{ book.title }}</h1>
 <div class="container">
-
+    Author: {{ book.author }}<br> Year: {{ book.year }}<br> ISBN: {{ book.isbn }}<br> Good Reads Data:<br> Average Rating: {{ goodreads['books'][0]['average_rating'] }}
 </div>
 {% endblock %}

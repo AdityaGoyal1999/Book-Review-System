@@ -32,9 +32,6 @@ db = scoped_session(sessionmaker(bind=engine))
 
 @app.route("/")
 def index():
-
-    # res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key":"5Bnk2patWxtDaOVNSsirw", "isbns": "9781632168146"})
-    # print(res.json())
     
     return render_template("welcome.html")
 
@@ -91,13 +88,25 @@ def search():
 
 
 # TODO: This is not working
-@app.route("/book")
-def book():
+@app.route("/book/<isbn>")
+def book(isbn):
 
-    return render_template("book.html")
+    book = db.execute("SELECT * FROM books WHERE isbn=:isbn", {"isbn": isbn}).fetchone()
+
+    res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key":"5Bnk2patWxtDaOVNSsirw", "isbns": isbn})
+    goodreads = res.json()
+    print(goodreads)
+    return render_template("book.html", book=book, goodreads=goodreads)
 
 
 @app.route("/about")
 def about():
 
     return render_template("about.html")
+
+
+@app.route("/api/<isbn>", methods=["GET"])
+def info(isbn):
+
+    # TODO: Complete this one
+    return f"{isbn}"
