@@ -78,8 +78,9 @@ def search():
     
     option = request.form['options']
     search = request.form['search']
+    # search = search.strip()
 
-    print(option, search)
+    # print(option, search)
     db_query = f"SELECT * FROM books WHERE {option} LIKE '%{search}%';"
     books = db.execute(db_query).fetchall()
     print(books)
@@ -95,8 +96,15 @@ def book(isbn):
 
     res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key":"5Bnk2patWxtDaOVNSsirw", "isbns": isbn})
     goodreads = res.json()
-    print(goodreads)
-    return render_template("book.html", book=book, goodreads=goodreads)
+    # print(goodreads)
+
+    req = requests.get(f"https://www.goodreads.com/book/isbn/{isbn}?format=json", params={"key":"5Bnk2patWxtDaOVNSsirw", "isbn": '{isbn}', "user_id": '115533298'})
+    reviews = req.json()
+    print(reviews['reviews_widget'])
+    return reviews['reviews_widget']
+
+
+    # return render_template("book.html", book=book, goodreads=goodreads)
 
 
 @app.route("/about")
@@ -108,5 +116,22 @@ def about():
 @app.route("/api/<isbn>", methods=["GET"])
 def info(isbn):
 
-    # TODO: Complete this one
-    return f"{isbn}"
+    book = db.execute("SELECT * FROM books WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
+    # TODO: Make this better
+    if(book is None):
+        return "Error 404 Page not found"
+
+    res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key":"5Bnk2patWxtDaOVNSsirw", "isbns": isbn})
+    goodreads = res.json()
+
+
+    description = {
+    "title": book.title,
+    "author": book.author,
+    "year": int(book.year),
+    "isbn": int(isbn),
+    "review_count": goodreads['books'][0]['reviews_count'],
+    "average_score": float(goodreads['books'][0]['average_rating'])
+    }
+
+    return f"{description}"
