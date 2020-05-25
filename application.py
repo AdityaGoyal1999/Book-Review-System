@@ -99,12 +99,10 @@ def book(isbn, username):
 
     res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key":"5Bnk2patWxtDaOVNSsirw", "isbns": isbn})
     goodreads = res.json()
-    # print(goodreads)
 
     req = requests.get(f"https://www.goodreads.com/book/isbn/{isbn}?format=json", params={"key":"5Bnk2patWxtDaOVNSsirw", "isbn": '{isbn}', "user_id": '115533298'})
     reviews = req.json()
     print(reviews['reviews_widget'])
-    # return reviews['reviews_widget']
 
 
     return render_template("book.html", book=book, goodreads=goodreads, username=username)
@@ -136,7 +134,7 @@ def info(isbn):
     book = db.execute("SELECT * FROM books WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
     # TODO: Make this better
     if(book is None):
-        return "Error 404 Page not found"
+        return render_template("message.html", title="Error 404", message="Page not found")
 
     res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key":"5Bnk2patWxtDaOVNSsirw", "isbns": isbn})
     goodreads = res.json()
@@ -146,7 +144,7 @@ def info(isbn):
     "title": book.title,
     "author": book.author,
     "year": int(book.year),
-    "isbn": int(isbn),
+    "isbn": isbn,
     "review_count": goodreads['books'][0]['reviews_count'],
     "average_score": float(goodreads['books'][0]['average_rating'])
     }
