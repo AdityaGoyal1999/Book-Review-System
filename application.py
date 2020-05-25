@@ -80,11 +80,10 @@ def search(username):
     
     option = request.form['options']
     search = request.form['search']
-    print(username, "\n\n")
     # search = search.strip()
 
     # print(option, search)
-    db_query = f"SELECT * FROM books WHERE {option} LIKE '%{search}%';"
+    db_query = f"SELECT * FROM books WHERE LOWER({option}) LIKE LOWER('%{search}%');"
     books = db.execute(db_query).fetchall()
     print(books)
 
