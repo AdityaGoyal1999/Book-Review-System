@@ -44,7 +44,8 @@ def login():
     check = db.execute("SELECT * FROM users WHERE username = :usnm AND password = :paswd", {"usnm": username, "paswd": password}).fetchone()
     if(check is None):
         return "Invalid username or password"
-    return render_template("search.html", user=username)
+
+    return render_template("search.html", username=username)
 
 @app.route("/signuppage")
 def signuppage():
@@ -70,6 +71,7 @@ def signup():
         return "User already exists"
     db.execute("INSERT INTO users (name, username, password) VALUES (:name, :username, :password)", {"name":name, "username": username, "password": password})
     db.commit()
+
     return render_template("search.html", username=username)
 
 # TODO: search button not working in nav
@@ -112,12 +114,15 @@ def book(isbn, username):
 def review(isbn, username):
     
     review = request.form['review']
+    req = db.execute(f"SELECT * FROM reviews WHERE (username='{username}' AND book='{isbn}');").fetchone()
+    if(req is None):
+        db.execute("INSERT INTO reviews (username, book, review) VALUES (:username, :book, :review);", {"username":username, "book": isbn, "review": review})
+        db.commit()
+        return "Added"
+    else:
+        return "You cannot add review for the same book twice"
 
-    db.execute(f"INSERT INTO reviews (username, book, review) VALUES ({username}, {isbn}, {review});")
-    db.commit()
-
-    return review, "added by", username 
-
+    return "Never reaching"
 
 @app.route("/about")
 def about():
