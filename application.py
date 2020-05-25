@@ -44,7 +44,7 @@ def login():
     check = db.execute("SELECT * FROM users WHERE username = :usnm AND password = :paswd", {"usnm": username, "paswd": password}).fetchone()
     if(check is None):
         return "Invalid username or password"
-    return render_template("search.html")
+    return render_template("search.html", user=username)
 
 @app.route("/signuppage")
 def signuppage():
@@ -70,14 +70,15 @@ def signup():
         return "User already exists"
     db.execute("INSERT INTO users (name, username, password) VALUES (:name, :username, :password)", {"name":name, "username": username, "password": password})
     db.commit()
-    return render_template("search.html")
+    return render_template("search.html", username=username)
 
 # TODO: search button not working in nav
-@app.route("/search", methods=["POST", "GET"])
-def search():
+@app.route("/search/<username>", methods=["POST", "GET"])
+def search(username):
     
     option = request.form['options']
     search = request.form['search']
+    print(username, "\n\n")
     # search = search.strip()
 
     # print(option, search)
@@ -85,12 +86,12 @@ def search():
     books = db.execute(db_query).fetchall()
     print(books)
 
-    return render_template("searchResults.html", books=books, number=0)
+    return render_template("searchResults.html", books=books, number=0, username=username)
 
 
 # TODO: This is not working
-@app.route("/book/<isbn>")
-def book(isbn):
+@app.route("/book/<isbn>/<username>")
+def book(isbn, username):
 
     book = db.execute("SELECT * FROM books WHERE isbn=:isbn", {"isbn": isbn}).fetchone()
 
@@ -101,10 +102,21 @@ def book(isbn):
     req = requests.get(f"https://www.goodreads.com/book/isbn/{isbn}?format=json", params={"key":"5Bnk2patWxtDaOVNSsirw", "isbn": '{isbn}', "user_id": '115533298'})
     reviews = req.json()
     print(reviews['reviews_widget'])
-    return reviews['reviews_widget']
+    # return reviews['reviews_widget']
 
 
-    # return render_template("book.html", book=book, goodreads=goodreads)
+    return render_template("book.html", book=book, goodreads=goodreads, username=username)
+
+
+@app.route("/review/<isbn>/<username>", methods=['POST', 'GET'])
+def review(isbn, username):
+    
+    review = request.form['review']
+
+    db.execute(f"INSERT INTO reviews (username, book, review) VALUES ({username}, {isbn}, {review});")
+    db.commit()
+
+    return review, "added by", username 
 
 
 @app.route("/about")

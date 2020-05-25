@@ -2,7 +2,7 @@
 <h1>Search book</h1>
 
 <div class="container">
-    <form action="{{ url_for('search') }}" method="POST" class="form-horizontal">
+    <form action="{{ url_for('search', username=username) }}" method="POST" class="form-horizontal">
         <div class="form-group">
             <label for="type" class="control-label col-sm-2">Search by</label>
             <input type="radio" name="options" value="author">Author</input>
