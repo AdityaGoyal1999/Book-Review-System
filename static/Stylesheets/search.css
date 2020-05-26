@@ -1,0 +1,13 @@
+h1 {
+    text-align: center;
+}
+
+.container {
+    border: 3px solid black;
+    padding: 60px;
+    background-color: cornsilk;
+}
+
+body {
+    background-image: url('/static/img/books1.jpg')
+}

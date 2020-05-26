@@ -1,4 +1,5 @@
-{% extends "loggedInLayout.html" %} {% block title %} Search Results {% endblock %} {% block import %} {% endblock %} {% block body %}
+{% extends "loggedInLayout.html" %} {% block title %} Search Results {% endblock %} {% block import %}
+<link rel="stylesheet" href="{{ url_for('static', filename='Stylesheets/searchResults.css') }}">{% endblock %} {% block body %}
 <h1>Search Results</h1>
 <div class="container">
     {% if books == [] %}

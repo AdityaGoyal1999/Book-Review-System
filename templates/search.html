@@ -1,7 +1,8 @@
-{% extends "loggedInLayout.html" %} {% block title %} Search Book {% endblock %} {% block import %} {% endblock %} {% block body %}
+{% extends "loggedInLayout.html" %} {% block title %} Search Book {% endblock %} {% block import %}
+<link rel="stylesheet" href="{{ url_for('static', filename='Stylesheets/search.css') }}">{% endblock %} {% block body %}
 <h1>Search book</h1>
 
-<div class="container">
+<div class="container" style="background-color: cornsilk;">
     <form action="{{ url_for('search', username=username) }}" method="POST" class="form-horizontal">
         <div class="form-group">
             <label for="type" class="control-label col-sm-2">Search by</label>

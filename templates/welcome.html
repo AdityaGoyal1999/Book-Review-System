@@ -1,7 +1,8 @@
-{% extends "layout.html" %} {% block title %}Login page{% endblock %} {% block body %}
-
+{% extends "layout.html" %} {% block title %}Login page{% endblock %} {% block import %}
+<link rel="stylesheet" href="{{ url_for('static', filename='Stylesheets/welcome.css') }}"> {% endblock %} {% block body %}
+<h1>Welcome to Project1</h1>
 <div class="container">
-    <h1>Welcome to Project1</h1>
+    <p id="para">This is the a book review website. You can find 5000 books here.</p>
 </div>
 
 {% endblock %}

@@ -14,7 +14,7 @@ app = Flask(__name__)
 # if not os.getenv("postgres://wulnronkubqzoy:33880c816471a23ae0fb3ccf19871e1f52f8dbe9f0102c57d479c39b706e923e@ec2-52-87-135-240.compute-1.amazonaws.com:5432/d9i2hu0qmbc0jm"):
 #     raise RuntimeError("DATABASE_URL is not set")
 
-# Configure session to use filesystem
+# Configure session to use filesystemre
 
 """ GOODREADS
 key: 5Bnk2patWxtDaOVNSsirw
