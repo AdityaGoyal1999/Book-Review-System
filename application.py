@@ -87,7 +87,7 @@ def search(username):
     books = db.execute(db_query).fetchall()
     print(books)
 
-    return render_template("searchResults.html", books=books, number=0, username=username)
+    return render_template("books.html", books=books, number=0, username=username)
 
 
 # TODO: This is not working
