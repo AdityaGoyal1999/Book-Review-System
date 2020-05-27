@@ -2,7 +2,9 @@
 
 Web Programming with Python and JavaScript
 
-The webapp is created with giving user the utmost priority and ease.
+The webapp is created with giving user the utmost priority and ease. The project also contains comments when necessary for communicating with a fellow developer.
+
+The project has 3 tables -
 
 1. The users can register to the webapp by entering their name, unique username, password.
 2. Once the user has registered, they can login using their username and password.
@@ -21,5 +23,3 @@ Database for heroku
 
 TODO:
 1. Readme
-2. About page
-3. Naming convention

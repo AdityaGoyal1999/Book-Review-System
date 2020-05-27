@@ -6,6 +6,7 @@
         <h1>Search book</h1>
         <form action="{{ url_for('search', username=username, val='None') }}" method="POST" class="form-horizontal">
 
+            <!-- User selects type of input -->
             <div class="form-group">
 
                 <div class="custom-control custom-radio custom-control-inline">
@@ -31,6 +32,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Search book</button>
         </form>
+        <!-- Error message -->
         {% if val != 'None' %}
         <div class="alert alert-danger">
             <strong>Error!</strong> {{ val }}</a>.

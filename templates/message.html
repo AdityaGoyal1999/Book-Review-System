@@ -1,8 +1,10 @@
-{% extends "layout.html" %} {% block title %} {{title}} {% endblock %} {% block import %}
+{% extends "loggedInLayout.html" %} {% block title %} {{title}} {% endblock %} {% block import %}
 <link rel="stylesheet" href="{{ url_for('static', filename='Stylesheets/base.css') }}"> {% endblock %} {% block body %}
+<!-- Common template for messages displayed to the user -->
 <div class="main-container">
     <div class="container">
-        <h2>{{ message }}</h2>
+        <h1>Error 404</h1>
+        <h4 style="text-align: center">{{ message }}</h4>
     </div>
 </div>
 {% endblock %}

@@ -6,6 +6,8 @@
         <h1>{{ book.title }}</h1>
         <div class="row">
             <div class="col-md-6">
+
+                <!-- Info of the book -->
                 <dl class="row">
                     <dt class="col-sm-3">Author</dt>
                     <dd class="col-sm-9">{{ book.author }}</dd><br>
@@ -22,6 +24,7 @@
                     <dt class="col-sm-3">Number of rating</dt>
                     <dd class="col-sm-9">{{ total_rating }}*</dd><br>
                 </dl>
+                <!-- Review submission -->
                 <form action="{{ url_for('review', isbn=book.isbn, username=username, val='None') }}" method="post">
                     <textarea class="form-control" placeholder="Enter comment here" rows="5" name="review"></textarea><br>
                     <div class="form-group">
@@ -36,6 +39,8 @@
                     </div>
                     <button class="btn btn-primary" type="submit">Submit Review</button>
                 </form>
+
+                <!-- For messages to the user -->
                 {% if val == 'Review Added' %}
                 <div class="alert alert-success">
                     <strong>Success!</strong> {{ val }}</a>.

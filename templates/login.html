@@ -3,6 +3,10 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='Stylesheets/login.css') }}"> {% endblock %} {% block body %}
 <div class="main-container">
     <div class="container">
+
+        <!-- Code is refractored for when user wants to login or signup -->
+
+        <!-- User wants to login -->
         {% if not signup %}
         <h1>Login</h1>
         <form action="{{ url_for('login') }}" method="post">
@@ -19,6 +23,7 @@
             </div>
         </form>
         {% else %}
+        <!-- User wants to signup -->
         <h1>SignUp</h1>
         <form action="{{ url_for('signup') }}" method="post">
             <div class="form-group">
