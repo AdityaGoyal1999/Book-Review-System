@@ -61,6 +61,8 @@ def signup():
     db.execute("INSERT INTO users (name, username, password) VALUES (:name, :username, :password)", {"name":name, "username": username, "password": password})
     db.commit()
 
+    session['username'] = username
+
     return render_template("search.html", username=username, val="None")
 
 
@@ -121,6 +123,10 @@ def review(isbn, username, val='None'):
     
     # print(val, "\n\n")
     review = request.form['review']
+    rating = request.form['options']
+
+    # TODO: deal with rating
+
     req = db.execute(f"SELECT * FROM reviews WHERE (username='{username}' AND book='{isbn}');").fetchone()
     if(req is None):
         db.execute("INSERT INTO reviews (username, book, review) VALUES (:username, :book, :review);", {"username":username, "book": isbn, "review": review})
@@ -135,6 +141,13 @@ def review(isbn, username, val='None'):
 def about():
 
     return render_template("about.html")
+
+
+@app.route("/logout")
+def logout():
+
+    session.pop('username',None)
+    return redirect(url_for('index'))
 
 
 @app.route("/api/<isbn>", methods=["GET"])

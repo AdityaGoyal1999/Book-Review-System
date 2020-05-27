@@ -24,6 +24,16 @@
                 </dl>
                 <form action="{{ url_for('review', isbn=book.isbn, username=username, val='None') }}" method="post">
                     <textarea class="form-control" placeholder="Enter comment here" rows="5" name="review"></textarea><br>
+                    <div class="form-group">
+                        <label for="sel1">Rating:</label>
+                        <select class="browser-default custom-select ratings" id="sel1" name="options">
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                    </div>
                     <button class="btn btn-primary" type="submit">Submit Review</button>
                 </form>
                 {% if val == 'Review Added' %}
