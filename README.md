@@ -44,6 +44,4 @@ Credits:
 Goodreads API
 Database - heroku
 
-TODO:
-1. Readme
-2. Book.html
+Created by Aditya Goyal and all right belong to me. If any query, contact me.
