@@ -1,0 +1,11 @@
+@media only screen and (max-width: 768px) {
+    .comments {
+        margin-top: 20px;
+    }
+    .container {
+        margin-top: 20px;
+    }
+    h3 {
+        margin-top: 15px;
+    }
+}

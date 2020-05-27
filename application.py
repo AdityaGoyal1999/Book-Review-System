@@ -99,12 +99,14 @@ def book(isbn, username):
     res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key":"5Bnk2patWxtDaOVNSsirw", "isbns": isbn})
     goodreads = res.json()
 
+    local_reviews = db.execute("SELECT * FROM reviews WHERE book=:book", {"book": isbn}).fetchall()
+
     req = requests.get(f"https://www.goodreads.com/book/isbn/{isbn}?format=json", params={"key":"5Bnk2patWxtDaOVNSsirw", "isbn": '{isbn}', "user_id": '115533298'})
     reviews = req.json()
     print(reviews['reviews_widget'])
 
 
-    return render_template("book.html", book=book, goodreads=goodreads, username=username)
+    return render_template("book.html", book=book, goodreads=goodreads, username=username, local_reviews=local_reviews)
 
 
 @app.route("/review/<isbn>/<username>", methods=['POST', 'GET'])

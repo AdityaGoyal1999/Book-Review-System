@@ -1,12 +1,40 @@
 {% extends "layout.html" %} {% block title %} {{ book.title }} {% endblock %} {% block import %}
-<link rel="stylesheet" href="{{ url_for('static', filename='Stylesheets/base.css') }}"> {% endblock %} {% block body %}
+<link rel="stylesheet" href="{{ url_for('static', filename='Stylesheets/base.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='Stylesheets/book.css') }}"> {% endblock %} {% block body %}
+<div class="main-container">
+    <div class="container">
+        <h1>{{ book.title }}</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <dl class="row">
+                    <dt class="col-sm-3">Author</dt>
+                    <dd class="col-sm-9">{{ book.author }}</dd><br>
 
-<div class="container">
-    <h1>{{ book.title }}</h1>
-    Author: {{ book.author }}<br> Year: {{ book.year }}<br> ISBN: {{ book.isbn }}<br> Good Reads Data:<br> Average Rating: {{ goodreads['books'][0]['average_rating'] }}<br>
-    <form action="{{ url_for('review', isbn=book.isbn, username=username) }}" method="post">
-        <textarea placeholder="Enter comment here" rows="5" cols="50" name="review"></textarea>
-        <button type="submit">Submit Review</button>
-    </form>
+                    <dt class="col-sm-3">Year</dt>
+                    <dd class="col-sm-9">{{ book.year }}</dd><br>
+
+                    <dt class="col-sm-3">ISBN</dt>
+                    <dd class="col-sm-9">{{ book.isbn }}</dd><br>
+
+                    <dt class="col-sm-3">Average rating</dt>
+                    <dd class="col-sm-9">{{ goodreads['books'][0]['average_rating'] }}*</dd><br>
+
+                    <dt class="col-sm-3">Number of rating</dt>
+                    <dd class="col-sm-9">{{ goodreads['books'][0]['work_ratings_count'] }}*</dd><br>
+                </dl>
+                <form action="{{ url_for('review', isbn=book.isbn, username=username) }}" method="post">
+                    <textarea class="form-control" placeholder="Enter comment here" rows="5" name="review"></textarea><br>
+                    <button class="btn btn-primary" type="submit">Submit Review</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <h3>Reviews</h3>
+                {% for review in local_reviews %}
+                <div class="alert alert-info comments">
+                    <strong>{{ review[1] }}</strong><br>{{ review[3] }}
+                </div>{% endfor %} *(According to GoodReads)
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
