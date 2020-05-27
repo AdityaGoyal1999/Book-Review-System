@@ -21,5 +21,4 @@ Database for heroku
 
 TODO:
 1. Sessions
-2. Ratings
-3. Readme
+2. Readme

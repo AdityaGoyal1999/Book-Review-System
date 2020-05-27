@@ -17,21 +17,21 @@
                     <dd class="col-sm-9">{{ book.isbn }}</dd><br>
 
                     <dt class="col-sm-3">Average rating</dt>
-                    <dd class="col-sm-9">{{ goodreads['books'][0]['average_rating'] }}*</dd><br>
+                    <dd class="col-sm-9">{{ average_rating }}*</dd><br>
 
                     <dt class="col-sm-3">Number of rating</dt>
-                    <dd class="col-sm-9">{{ goodreads['books'][0]['work_ratings_count'] }}*</dd><br>
+                    <dd class="col-sm-9">{{ total_rating }}*</dd><br>
                 </dl>
                 <form action="{{ url_for('review', isbn=book.isbn, username=username, val='None') }}" method="post">
                     <textarea class="form-control" placeholder="Enter comment here" rows="5" name="review"></textarea><br>
                     <div class="form-group">
                         <label for="sel1">Rating:</label>
                         <select class="browser-default custom-select ratings" id="sel1" name="options">
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
+                            <option value="5">5(Amazing)</option>
+                            <option value="4">4</option>
+                            <option value="3">3</option>
+                            <option value="2">2</option>
+                            <option value="1">1(Bad)</option>
                         </select>
                     </div>
                     <button class="btn btn-primary" type="submit">Submit Review</button>
@@ -50,8 +50,8 @@
                 <h3>Reviews</h3>
                 {% for review in local_reviews %}
                 <div class="alert alert-info comments">
-                    <strong>{{ review[1] }}</strong><br>{{ review[3] }}
-                </div>{% endfor %} *(According to GoodReads)
+                    <strong>{{ review[1] }}</strong><br>{{ review[3] }}<br>Rating: {{review[4]}}
+                </div>{% endfor %} *(Most reviews from GoodReads)
             </div>
         </div>
     </div>

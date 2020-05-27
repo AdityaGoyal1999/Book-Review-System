@@ -108,28 +108,33 @@ def book(isbn, username, val):
     res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key":"5Bnk2patWxtDaOVNSsirw", "isbns": isbn})
     goodreads = res.json()
 
-    local_reviews = db.execute("SELECT * FROM reviews WHERE book=:book", {"book": isbn}).fetchall()
+    local_reviews = db.execute("SELECT * FROM book_reviews WHERE book=:book", {"book": isbn}).fetchall()
 
     req = requests.get(f"https://www.goodreads.com/book/isbn/{isbn}?format=json", params={"key":"5Bnk2patWxtDaOVNSsirw", "isbn": '{isbn}', "user_id": '115533298'})
     reviews = req.json()
     print(reviews['reviews_widget'])
 
+    # Merging the local and goodreads ratings
+    sum = 0
+    for local_review in local_reviews:
+        sum+=local_review[4]
+    goodreads_rating = float(goodreads['books'][0]['average_rating'])
+    goodreads_number_rating = float(goodreads['books'][0]['work_ratings_count'])
+    total_rating = len(local_reviews)+goodreads_number_rating
+    average_rating = ((goodreads_number_rating * goodreads_rating) + sum)/total_rating
 
-    return render_template("book.html", book=book, goodreads=goodreads, username=username, local_reviews=local_reviews, val=val)
+    return render_template("book.html", book=book, goodreads=goodreads, username=username, local_reviews=local_reviews, val=val, average_rating=round(average_rating, 2), total_rating=int(total_rating))
 
 
 @app.route("/review/<isbn>/<username>/<val>", methods=['POST', 'GET'])
 def review(isbn, username, val='None'):
     
-    # print(val, "\n\n")
     review = request.form['review']
     rating = request.form['options']
 
-    # TODO: deal with rating
-
-    req = db.execute(f"SELECT * FROM reviews WHERE (username='{username}' AND book='{isbn}');").fetchone()
+    req = db.execute(f"SELECT * FROM book_reviews WHERE (username='{username}' AND book='{isbn}');").fetchone()
     if(req is None):
-        db.execute("INSERT INTO reviews (username, book, review) VALUES (:username, :book, :review);", {"username":username, "book": isbn, "review": review})
+        db.execute("INSERT INTO book_reviews (username, book, review, rating) VALUES (:username, :book, :review, :rating);", {"username":username, "book": isbn, "review": review, "rating": rating})
         db.commit()
         return redirect(url_for('book', isbn=isbn, username=username, val='Review Added'))
     else:
