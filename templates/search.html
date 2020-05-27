@@ -1,35 +1,36 @@
 {% extends "layout.html" %} {% block title %} Search Book {% endblock %} {% block import %}
 <link rel="stylesheet" href="{{ url_for('static', filename='Stylesheets/base.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='Stylesheets/search.css') }}"> {% endblock %} {% block body %}
+<div class="main-container">
+    <div class="container">
+        <h1>Search book</h1>
+        <form action="{{ url_for('search', username=username) }}" method="POST" class="form-horizontal">
 
-<div class="container">
-    <h1>Search book</h1>
-    <form action="{{ url_for('search', username=username) }}" method="POST" class="form-horizontal">
+            <div class="form-group">
 
-        <div class="form-group">
-
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" class="custom-control-input" id="defaultInline1" name="options" value="author">
-                <label class="custom-control-label" for="defaultInline1">Author</label>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="defaultInline1" name="options" value="author">
+                    <label class="custom-control-label" for="defaultInline1">Author</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="defaultInline2" name="options" value="isbn">
+                    <label class="custom-control-label" for="defaultInline2">ISBN</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="defaultInline3" name="options" value="title">
+                    <label class="custom-control-label" for="defaultInline3">Title</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="defaultInline4" name="options" value="year">
+                    <label class="custom-control-label" for="defaultInline4">Year</label>
+                </div>
             </div>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" class="custom-control-input" id="defaultInline2" name="options" value="isbn">
-                <label class="custom-control-label" for="defaultInline2">ISBN</label>
+            <div class="form-group ">
+                <label for="Search ">Search</label>
+                <input type="text" class="form-control" id="search" placeholder="Search Book" name="search">
             </div>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" class="custom-control-input" id="defaultInline3" name="options" value="title">
-                <label class="custom-control-label" for="defaultInline3">Title</label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" class="custom-control-input" id="defaultInline4" name="options" value="year">
-                <label class="custom-control-label" for="defaultInline4">Year</label>
-            </div>
-        </div>
-        <div class="form-group ">
-            <label for="Search ">Search</label>
-            <input type="text " class="form-control " id="search" placeholder="Search Book " name="search">
-        </div>
-        <button type="submit " class="btn btn-primary ">Search book</button>
-    </form>
+            <button type="submit" class="btn btn-primary">Search book</button>
+        </form>
+    </div>
 </div>
 {% endblock %}
