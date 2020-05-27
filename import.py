@@ -5,6 +5,8 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 engine = create_engine("postgres://jbuimiitaijunf:5e006a287d39930d2922e0a6bdaf1a9e69b73547a92f13f272307a2016d9cf68@ec2-34-200-15-192.compute-1.amazonaws.com:5432/dbm2hr587tr7rj")
 db = scoped_session(sessionmaker(bind=engine))
 
+# Columns created - ID, ISBN, TITLE, AUTHOR, YEAR
+
 def main():
     with open('books.csv', mode='r') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=",")
