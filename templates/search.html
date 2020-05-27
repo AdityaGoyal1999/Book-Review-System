@@ -1,21 +1,34 @@
-{% extends "loggedInLayout.html" %} {% block title %} Search Book {% endblock %} {% block import %}
+{% extends "layout.html" %} {% block title %} Search Book {% endblock %} {% block import %}
 <link rel="stylesheet" href="{{ url_for('static', filename='Stylesheets/search.css') }}">{% endblock %} {% block body %}
-<h1>Search book</h1>
 
-<div class="container" style="background-color: cornsilk;">
+<div class="container">
+    <h1>Search book</h1>
     <form action="{{ url_for('search', username=username) }}" method="POST" class="form-horizontal">
+
         <div class="form-group">
-            <label for="type" class="control-label col-sm-2">Search by</label>
-            <input type="radio" name="options" value="author">Author</input>
-            <input type="radio" name="options" value="isbn">ISBN</input>
-            <input type="radio" name="options" value="title">Title</input>
-            <input type="radio" name="options" value="year">Year</input><br>
+
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="defaultInline1" name="options" value="author">
+                <label class="custom-control-label" for="defaultInline1">Author</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="defaultInline2" name="options" value="isbn">
+                <label class="custom-control-label" for="defaultInline2">ISBN</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="defaultInline3" name="options" value="title">
+                <label class="custom-control-label" for="defaultInline3">Title</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="defaultInline4" name="options" value="year">
+                <label class="custom-control-label" for="defaultInline4">Year</label>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="search" class="control-label col-sm-2">Search</label>
-            <input type="text" name="search" class="form-control">
+        <div class="form-group ">
+            <label for="Search ">Search</label>
+            <input type="text " class="form-control " id="search" placeholder="Search Book " name="search">
         </div>
-        <button type="submit">Search Book</button>
+        <button type="submit " class="btn btn-primary ">Search book</button>
     </form>
 </div>
 {% endblock %}
