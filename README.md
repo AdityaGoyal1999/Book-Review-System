@@ -20,5 +20,6 @@ Goodreads API
 Database for heroku
 
 TODO:
-1. Sessions
-2. Readme
+1. Readme
+2. About page
+3. Naming convention

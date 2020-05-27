@@ -1,4 +1,4 @@
-{% extends "layout.html" %} {% block title %} {{ book.title }} {% endblock %} {% block import %}
+{% extends "loggedInLayout.html" %} {% block title %} {{ book.title }} {% endblock %} {% block import %}
 <link rel="stylesheet" href="{{ url_for('static', filename='Stylesheets/base.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='Stylesheets/book.css') }}"> {% endblock %} {% block body %}
 <div class="main-container">
