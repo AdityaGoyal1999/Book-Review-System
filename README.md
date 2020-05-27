@@ -14,18 +14,20 @@ The project's database has 3 tables -
 3. book-reviews - for storing reviews given by the users via. this webapp
 
 FILES-
-1. import.py
-2. application.py
-3. welcome.py
-4. login.html
-5. search.html
-6. books.html
-7. book.html
-8. message.html
-9. layout.html
-10. loggedInLayout.html
-11. base.css
-12. book.css, books.css, login.css, search.css, welcome.css
+1. import.py - seperately adds all book info from books.csv to PostgreSQL databse(books).
+2. application.py - Does all the server side computation - Manages all the html files.
+3. welcome.py - Entry to the webapp, gives short description for the app.
+4. login.html - Produces a login page/Signup page according to the situation.
+5. search.html - Page where user can enter item to be searched according to ISBN, Title, Author, Year. Text input is very forgiving as it is case insensitive and accepts search requests with unnecessary spaces.
+6. books.html - Displays the resulted similar books that the user searched for. If nothing to display then the user is notified about it.
+7. book.html - Specific page for a book which has info about the book and user can submit a review for it.
+8. message.html - Universal page for reporting messages like Error message, page not found.
+9. layout.html - Refractored code(i.e. Navigation bar) for html pages when the user is logged out.
+10. loggedInLayout.html - Refractored code(i.e. Navigation bar) for html pages when the user is logged in.
+11. base.css - contains CSS code that is common to every html page to avoid repeatition.
+12. book.css, books.css, login.css, search.css, welcome.css - CSS files for corresponding html ones to contain specific style elements.
+
+The app gives descriptive messages whenver required.
 
 Broad functions of the project-
 1. The users can register to the webapp by entering their name, unique username, password.
@@ -44,3 +46,4 @@ Database - heroku
 
 TODO:
 1. Readme
+2. Book.html

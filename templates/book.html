@@ -18,10 +18,16 @@
                     <dt class="col-sm-3">ISBN</dt>
                     <dd class="col-sm-9">{{ book.isbn }}</dd><br>
 
-                    <dt class="col-sm-3">Average rating</dt>
+                    <dt class="col-sm-3">Goodreads average rating</dt>
+                    <dd class="col-sm-9">{{ goodreads['books'][0]['average_rating'] }}*</dd><br>
+
+                    <dt class="col-sm-3">Goodreads number of ratings</dt>
+                    <dd class="col-sm-9">{{ goodreads['books'][0]['work_ratings_count'] }}*</dd><br>
+
+                    <dt class="col-sm-3">Aggregate average rating</dt>
                     <dd class="col-sm-9">{{ average_rating }}*</dd><br>
 
-                    <dt class="col-sm-3">Number of rating</dt>
+                    <dt class="col-sm-3">Total number of ratings</dt>
                     <dd class="col-sm-9">{{ total_rating }}*</dd><br>
                 </dl>
                 <!-- Review submission -->
