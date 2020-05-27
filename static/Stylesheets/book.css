@@ -17,3 +17,11 @@
 .alert-success {
     margin-top: 20px;
 }
+
+
+/* Overriding margin-top to make page more appealing */
+
+.container {
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
