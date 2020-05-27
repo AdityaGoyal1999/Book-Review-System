@@ -39,13 +39,13 @@ def index():
 @app.route("/signuppage")
 def signuppage():
 
-    return render_template("login.html", signup=True)
+    return render_template("login.html", signup=True, val='None')
 
 
 @app.route("/loginpage")
 def loginpage():
 
-    return render_template("login.html", signup=False)
+    return render_template("login.html", signup=False, val='None')
 
 
 @app.route("/signup", methods=["POST"])
@@ -57,7 +57,7 @@ def signup():
 
     users = db.execute("SELECT * FROM users WHERE username=:usnm;",{"usnm": username}).fetchall()
     if(users != []):
-        return "User already exists"
+        return render_template("login.html", signup=True, val='Username is already taken')
     db.execute("INSERT INTO users (name, username, password) VALUES (:name, :username, :password)", {"name":name, "username": username, "password": password})
     db.commit()
 
@@ -72,7 +72,7 @@ def login():
 
     check = db.execute("SELECT * FROM users WHERE username = :usnm AND password = :paswd", {"usnm": username, "paswd": password}).fetchone()
     if(check is None):
-        return "Invalid username or password"
+        return render_template("login.html", signup=False, val='Username or password is wrong')
 
     return render_template("search.html", username=username, val='None')
 
@@ -81,12 +81,12 @@ def login():
 @app.route("/search/<username>/<val>", methods=["POST", "GET"])
 def search(username, val):
     
-    option = request.form['options']
-
-    print(option, "\n\n\n")
-    
-    search = request.form['search']
+    try:
+        option = request.form['options']
+        search = request.form['search']
     # search = search.strip()
+    except KeyError:
+        return render_template("search.html", username=username, val="The search inputs are wrong")
     if(option is None or search == ''):
         return render_template("search.html", username=username, val="The search inputs are wrong")
 

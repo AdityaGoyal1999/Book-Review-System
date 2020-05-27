@@ -35,6 +35,10 @@
                 <input class="btn btn-primary button" type="submit" value="Login">
             </div>
         </form>
+        {% endif %} {% if val != 'None' %}
+        <div class="alert alert-danger">
+            <strong>Error!</strong> {{ val }}</a>.
+        </div>
         {% endif %}
     </div>
 </div>
