@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, session, render_template, request
+from flask import Flask, session, render_template, request, redirect, url_for
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -91,8 +91,8 @@ def search(username):
 
 
 # TODO: This is not working
-@app.route("/book/<isbn>/<username>")
-def book(isbn, username):
+@app.route("/book/<isbn>/<username>/<val>")
+def book(isbn, username, val):
 
     book = db.execute("SELECT * FROM books WHERE isbn=:isbn", {"isbn": isbn}).fetchone()
 
@@ -106,12 +106,13 @@ def book(isbn, username):
     print(reviews['reviews_widget'])
 
 
-    return render_template("book.html", book=book, goodreads=goodreads, username=username, local_reviews=local_reviews)
+    return render_template("book.html", book=book, goodreads=goodreads, username=username, local_reviews=local_reviews, val=val)
 
 
-@app.route("/review/<isbn>/<username>", methods=['POST', 'GET'])
-def review(isbn, username):
+@app.route("/review/<isbn>/<username>/<val>", methods=['POST', 'GET'])
+def review(isbn, username, val='None'):
     
+    # print(val, "\n\n")
     review = request.form['review']
     req = db.execute(f"SELECT * FROM reviews WHERE (username='{username}' AND book='{isbn}');").fetchone()
     if(req is None):
@@ -119,7 +120,7 @@ def review(isbn, username):
         db.commit()
         return "Added"
     else:
-        return "You cannot add review for the same book twice"
+        return redirect(url_for('book', isbn=isbn, username=username, val='You have already reviewed this book.'))
 
     return "Never reaching"
 
