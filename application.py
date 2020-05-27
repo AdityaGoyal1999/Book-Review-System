@@ -35,17 +35,6 @@ def index():
     
     return render_template("welcome.html")
 
-@app.route("/login", methods=["POST"])
-def login():
-
-    username = request.form['username']
-    password = request.form['password']
-
-    check = db.execute("SELECT * FROM users WHERE username = :usnm AND password = :paswd", {"usnm": username, "paswd": password}).fetchone()
-    if(check is None):
-        return "Invalid username or password"
-
-    return render_template("search.html", username=username)
 
 @app.route("/signuppage")
 def signuppage():
@@ -72,17 +61,35 @@ def signup():
     db.execute("INSERT INTO users (name, username, password) VALUES (:name, :username, :password)", {"name":name, "username": username, "password": password})
     db.commit()
 
-    return render_template("search.html", username=username)
+    return render_template("search.html", username=username, val="None")
+
+
+@app.route("/login", methods=["POST"])
+def login():
+
+    username = request.form['username']
+    password = request.form['password']
+
+    check = db.execute("SELECT * FROM users WHERE username = :usnm AND password = :paswd", {"usnm": username, "paswd": password}).fetchone()
+    if(check is None):
+        return "Invalid username or password"
+
+    return render_template("search.html", username=username, val='None')
+
 
 # TODO: search button not working in nav
-@app.route("/search/<username>", methods=["POST", "GET"])
-def search(username):
+@app.route("/search/<username>/<val>", methods=["POST", "GET"])
+def search(username, val):
     
     option = request.form['options']
+
+    print(option, "\n\n\n")
+    
     search = request.form['search']
     # search = search.strip()
+    if(option is None or search == ''):
+        return render_template("search.html", username=username, val="The search inputs are wrong")
 
-    # print(option, search)
     db_query = f"SELECT * FROM books WHERE LOWER({option}) LIKE LOWER('%{search}%');"
     books = db.execute(db_query).fetchall()
     print(books)

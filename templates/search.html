@@ -4,7 +4,7 @@
 <div class="main-container">
     <div class="container">
         <h1>Search book</h1>
-        <form action="{{ url_for('search', username=username) }}" method="POST" class="form-horizontal">
+        <form action="{{ url_for('search', username=username, val='None') }}" method="POST" class="form-horizontal">
 
             <div class="form-group">
 
@@ -31,6 +31,11 @@
             </div>
             <button type="submit" class="btn btn-primary">Search book</button>
         </form>
+        {% if val != 'None' %}
+        <div class="alert alert-danger">
+            <strong>Error!</strong>{{ val }}</a>.
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
