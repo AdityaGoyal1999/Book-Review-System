@@ -125,7 +125,7 @@ def review(isbn, username, val='None'):
     if(req is None):
         db.execute("INSERT INTO reviews (username, book, review) VALUES (:username, :book, :review);", {"username":username, "book": isbn, "review": review})
         db.commit()
-        return "Added"
+        return redirect(url_for('book', isbn=isbn, username=username, val='Review Added'))
     else:
         return redirect(url_for('book', isbn=isbn, username=username, val='You have already reviewed this book.'))
 

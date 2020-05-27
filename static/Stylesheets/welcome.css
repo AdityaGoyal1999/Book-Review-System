@@ -9,3 +9,13 @@
 #devBy {
     font-style: italic;
 }
+
+.link-button {
+    margin-left: 43%;
+}
+
+@media only screen and (max-width: 768px) {
+    .link-button {
+        margin-left: 32%;
+    }
+}

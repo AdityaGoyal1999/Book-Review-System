@@ -26,9 +26,13 @@
                     <textarea class="form-control" placeholder="Enter comment here" rows="5" name="review"></textarea><br>
                     <button class="btn btn-primary" type="submit">Submit Review</button>
                 </form>
-                {% if val != 'None' %}
+                {% if val == 'Review Added' %}
+                <div class="alert alert-success">
+                    <strong>Success!</strong> {{ val }}</a>.
+                </div>
+                {% endif %} {% if(val != 'None' and val != 'Review Added') %}
                 <div class="alert alert-danger">
-                    <strong>Error!</strong>{{ val }}</a>.
+                    <strong>Error!</strong> {{ val }}</a>.
                 </div>
                 {% endif %}
             </div>
