@@ -1,16 +1,15 @@
-h1 {
-    text-align: center;
+.form-fields {
+    margin-left: 40%;
+    margin-right: 40%;
 }
 
-.container {
-    border: 2px solid black;
-    background-color: white;
-    margin-top: 100px;
-    padding: 30px;
+.button {
+    margin-left: 45%;
 }
 
 @media only screen and (max-width: 768px) {
-    .container {
-        /* margin: 10px; */
+    .form-fields {
+        margin-left: 30%;
+        margin-right: 30%;
     }
 }
