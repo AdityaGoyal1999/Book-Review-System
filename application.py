@@ -59,7 +59,7 @@ def signup():
     # Login to session
     session['username'] = username
 
-    return render_template("search.html", username=username, val="None")
+    return render_template("search.html", val="None")
 
 
 @app.route("/login", methods=["POST"])
@@ -75,12 +75,13 @@ def login():
     # Login to session
     session['username'] = username
 
-    return render_template("search.html", username=username, val='None')
+    return render_template("search.html", val='None')
 
 
-@app.route("/search/<username>/<val>", methods=["POST", "GET"])
-def search(username, val):
-    
+@app.route("/search/<val>", methods=["POST", "GET"])
+def search(val):
+    username = session['username']
+
     try:
         option = request.form['options']
         search = request.form['search']
@@ -88,21 +89,22 @@ def search(username, val):
         search = search.strip()
     except KeyError:
         # if not option is selected
-        return render_template("search.html", username=username, val="The search inputs are wrong")
+        return render_template("search.html", val="The search inputs are wrong")
 
     # if empty string searched
     if(search == ''):
-        return render_template("search.html", username=username, val="The search inputs are wrong")
+        return render_template("search.html", val="The search inputs are wrong")
 
     db_query = f"SELECT * FROM books WHERE LOWER({option}) LIKE LOWER('%{search}%');"
     books = db.execute(db_query).fetchall()
 
-    return render_template("books.html", books=books, number=0, username=username)
+    return render_template("books.html", books=books, number=0)
 
 
-@app.route("/book/<isbn>/<username>/<val>")
-def book(isbn, username, val):
+@app.route("/book/<isbn>/<val>")
+def book(isbn, val):
 
+    username = session['username']
     book = db.execute("SELECT * FROM books WHERE isbn=:isbn", {"isbn": isbn}).fetchone()
 
     res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key":"5Bnk2patWxtDaOVNSsirw", "isbns": isbn})
@@ -122,12 +124,13 @@ def book(isbn, username, val):
     total_rating = len(local_reviews)+goodreads_number_rating
     average_rating = ((goodreads_number_rating * goodreads_rating) + sum)/total_rating
 
-    return render_template("book.html", book=book, goodreads=goodreads, username=username, local_reviews=local_reviews, val=val, average_rating=round(average_rating, 2), total_rating=int(total_rating))
+    return render_template("book.html", book=book, goodreads=goodreads, local_reviews=local_reviews, val=val, average_rating=round(average_rating, 2), total_rating=int(total_rating))
 
 
-@app.route("/review/<isbn>/<username>/<val>", methods=['POST', 'GET'])
-def review(isbn, username, val='None'):
+@app.route("/review/<isbn>/<val>", methods=['POST', 'GET'])
+def review(isbn, val='None'):
     
+    username = session['username']
     review = request.form['review']
     rating = request.form['options']
 
@@ -135,9 +138,9 @@ def review(isbn, username, val='None'):
     if(req is None):
         db.execute("INSERT INTO book_reviews (username, book, review, rating) VALUES (:username, :book, :review, :rating);", {"username":username, "book": isbn, "review": review, "rating": rating})
         db.commit()
-        return redirect(url_for('book', isbn=isbn, username=username, val='Review Added'))
+        return redirect(url_for('book', isbn=isbn, val='Review Added'))
     else:
-        return redirect(url_for('book', isbn=isbn, username=username, val='You have already reviewed this book.'))
+        return redirect(url_for('book', isbn=isbn, val='You have already reviewed this book.'))
 
 
 @app.route("/logout")

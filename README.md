@@ -44,4 +44,3 @@ Database - heroku
 
 TODO:
 1. Readme
-2. Session

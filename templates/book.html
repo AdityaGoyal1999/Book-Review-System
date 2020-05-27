@@ -25,7 +25,7 @@
                     <dd class="col-sm-9">{{ total_rating }}*</dd><br>
                 </dl>
                 <!-- Review submission -->
-                <form action="{{ url_for('review', isbn=book.isbn, username=username, val='None') }}" method="post">
+                <form action="{{ url_for('review', isbn=book.isbn, val='None') }}" method="post">
                     <textarea class="form-control" placeholder="Enter comment here" rows="5" name="review"></textarea><br>
                     <div class="form-group">
                         <label for="sel1">Rating:</label>

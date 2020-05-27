@@ -16,7 +16,7 @@
             </tr>
             {% for book in books %}
             <tr>
-                <td><a href=" {{ url_for('book', isbn=book[1], username=username, val='None') }} ">{{ book[2] }}</a></td>
+                <td><a href=" {{ url_for('book', isbn=book[1], val='None') }} ">{{ book[2] }}</a></td>
                 <td>{{ book[3] }}</td>
                 <td>{{ book[1] }}</td>
                 <td>{{ book[4] }}</td>
