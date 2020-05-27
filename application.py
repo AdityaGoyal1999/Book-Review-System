@@ -71,6 +71,9 @@ def login():
     check = db.execute("SELECT * FROM users WHERE username = :usnm AND password = :paswd", {"usnm": username, "paswd": password}).fetchone()
     if(check is None):
         return render_template("login.html", signup=False, val='Username or password is wrong')
+    
+    # Login to session
+    session['username'] = username
 
     return render_template("search.html", username=username, val='None')
 
