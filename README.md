@@ -1,4 +1,4 @@
-# Project 1
+# Book Review System
 
 Web Programming with Python and JavaScript
 
